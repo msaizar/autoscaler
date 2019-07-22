@@ -79,6 +79,7 @@ func (p *pinger) ping(ctx context.Context, server *autoscaler.Server) error {
 			logger.Debug().
 				Str("state", "healthy").
 				Msg("server ping successful")
+			client.Close()
 			return nil
 		}
 	}
