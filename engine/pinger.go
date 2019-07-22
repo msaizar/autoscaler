@@ -11,6 +11,7 @@ import (
 	"sync"
 	"time"
 
+	docker "docker.io/go-docker"
 	"github.com/drone/autoscaler"
 
 	"github.com/rs/zerolog/log"
@@ -60,7 +61,7 @@ func (p *pinger) ping(ctx context.Context, server *autoscaler.Server) error {
 		Logger()
 
 	client, err := p.client(server)
-	defer client.Close()
+	defer docker.Close()
 	if err != nil {
 		logger.Error().Err(err).
 			Msg("cannot create docker client")
