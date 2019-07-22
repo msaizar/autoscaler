@@ -44,8 +44,6 @@ func newDockerClient(server *autoscaler.Server) (docker.APIClient, error) {
 			TLSHandshakeTimeout:   10 * time.Second,
 			ExpectContinueTimeout: 4 * time.Second,
 			ResponseHeaderTimeout: 3 * time.Second,
-
-			// Prevent endless redirects
 			Timeout: 10 * time.Minute,
 
 			TLSClientConfig: tlsConfig,
