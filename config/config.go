@@ -71,8 +71,8 @@ type (
 
 		HTTP struct {
 			Host string
-			Port string `default:":8080"`
-			Root string `default:"/"`
+			Port string `envconfig:"DRONE_HTTP_PORT" default:":8080"`
+			Root string `envconfig:"DRONE_HTTP_ROOT" default:"/"`
 		}
 
 		TLS struct {
