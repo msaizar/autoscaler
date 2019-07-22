@@ -9,6 +9,7 @@ import (
 	"crypto/x509"
 	"fmt"
 	"net/http"
+	"time"
 
 	docker "docker.io/go-docker"
 	"docker.io/go-docker/api"
@@ -33,8 +34,20 @@ func newDockerClient(server *autoscaler.Server) (docker.APIClient, error) {
 	}
 	tlsConfig.RootCAs = x509.NewCertPool()
 	tlsConfig.RootCAs.AppendCertsFromPEM(server.CACert)
+
 	client := &http.Client{
 		Transport: &http.Transport{
+			DialContext:(&net.Dialer{
+					Timeout:   10 * time.Second,
+					KeepAlive: 10 * time.Second,
+			}).DialContext,
+			TLSHandshakeTimeout:   10 * time.Second,
+			ExpectContinueTimeout: 4 * time.Second,
+			ResponseHeaderTimeout: 3 * time.Second,
+
+			// Prevent endless redirects
+			Timeout: 10 * time.Minute,
+
 			TLSClientConfig: tlsConfig,
 		},
 	}
