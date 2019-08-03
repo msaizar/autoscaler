@@ -79,8 +79,8 @@ func (c *collector) collect(ctx context.Context, server *autoscaler.Server) erro
 		Size:     server.Size,
 	}
 
-	client, closer, err := c.client(server)
-	defer closer.Close()
+	client, err := c.client(server)
+	defer client.Close()
 	if err != nil {
 		return err
 	}

@@ -10,7 +10,7 @@ import (
 	"testing"
 	"io"
 
-	docker "docker.io/go-docker"
+	docker "github.com/docker/docker"
 	"github.com/drone/autoscaler"
 	"github.com/drone/autoscaler/mocks"
 
@@ -40,8 +40,8 @@ func TestCollect(t *testing.T) {
 	c := collector{
 		servers:  store,
 		provider: provider,
-		client: func(*autoscaler.Server) (docker.APIClient, io.Closer, error) {
-			return client, client, nil
+		client: func(*autoscaler.Server) (docker.APIClient, error) {
+			return client, nil
 		},
 	}
 	err := c.Collect(mockctx)
@@ -79,8 +79,8 @@ func TestCollect_DockerStopError(t *testing.T) {
 	c := collector{
 		servers:  store,
 		provider: provider,
-		client: func(*autoscaler.Server) (docker.APIClient, io.Closer, error) {
-			return client, client, nil
+		client: func(*autoscaler.Server) (docker.APIClient, error) {
+			return client, nil
 		},
 	}
 	err := c.Collect(mockctx)
@@ -121,8 +121,8 @@ func TestCollect_ServerDestroyError(t *testing.T) {
 	c := collector{
 		servers:  store,
 		provider: provider,
-		client: func(*autoscaler.Server) (docker.APIClient, io.Closer, error) {
-			return client, client, nil
+		client: func(*autoscaler.Server) (docker.APIClient, error) {
+			return client, nil
 		},
 	}
 	c.Collect(mockctx)

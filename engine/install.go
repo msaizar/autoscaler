@@ -18,9 +18,9 @@ import (
 
 	"github.com/drone/autoscaler"
 
-	docker "docker.io/go-docker"
-	"docker.io/go-docker/api/types"
-	"docker.io/go-docker/api/types/container"
+	docker "github.com/docker/docker"
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
 	"github.com/rs/zerolog/log"
 )
 
@@ -89,8 +89,8 @@ func (i *installer) install(ctx context.Context, instance *autoscaler.Server) er
 		Str("name", instance.Name).
 		Logger()
 
-	client, closer, err := i.client(instance)
-	defer closer.Close()
+	client, err := i.client(instance)
+	defer client.Close()
 	if err != nil {
 		logger.Error().Err(err).
 			Msg("cannot create docker client")
