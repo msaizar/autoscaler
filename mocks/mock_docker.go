@@ -107,18 +107,6 @@ func (mr *MockAPIClientMockRecorder) ClientVersion() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ClientVersion", reflect.TypeOf((*MockAPIClient)(nil).ClientVersion))
 }
 
-// Close mocks base method
-func (m *MockAPIClient) Close() error {
-	ret := m.ctrl.Call(m, "Close")
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// Close indicates an expected call of Close
-func (mr *MockAPIClientMockRecorder) Close() *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Close", reflect.TypeOf((*MockAPIClient)(nil).Close))
-}
-
 // ConfigCreate mocks base method
 func (m *MockAPIClient) ConfigCreate(arg0 context.Context, arg1 swarm.ConfigSpec) (types.ConfigCreateResponse, error) {
 	ret := m.ctrl.Call(m, "ConfigCreate", arg0, arg1)
