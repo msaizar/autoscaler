@@ -40,6 +40,6 @@ func newDockerClient(server *autoscaler.Server) (docker.APIClient, error) {
 		},
 	}
 	host := fmt.Sprintf("https://%s:2376", server.Address)
-	new_client, err = docker.NewClient(host, api.DefaultVersion, client, nil)
+	new_client, err := docker.NewClient(host, api.DefaultVersion, client, nil)
 	return new_client, io.Closer.Close, err
 }
