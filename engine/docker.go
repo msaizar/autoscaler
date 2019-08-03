@@ -23,7 +23,7 @@ type clientFunc func(*autoscaler.Server) (docker.APIClient, io.Closer, error)
 
 // newDockerClient returns a new Docker client configured for the
 // Server host and certificate chain.
-func newDockerClient(server *autoscaler.Server) (docker.APIClient, error) {
+func newDockerClient(server *autoscaler.Server) (docker.APIClient, io.Closer, error) {
 	tlsCert, err := tls.X509KeyPair(server.TLSCert, server.TLSKey)
 	if err != nil {
 		return nil, err
@@ -41,5 +41,5 @@ func newDockerClient(server *autoscaler.Server) (docker.APIClient, error) {
 	}
 	host := fmt.Sprintf("https://%s:2376", server.Address)
 	new_client, err := docker.NewClient(host, api.DefaultVersion, client, nil)
-	return new_client, io.Closer.Close, err
+	return new_client, io.Closer, err
 }
