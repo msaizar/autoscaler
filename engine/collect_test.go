@@ -41,7 +41,7 @@ func TestCollect(t *testing.T) {
 		servers:  store,
 		provider: provider,
 		client: func(*autoscaler.Server) (docker.APIClient, io.Closer, error) {
-			return client, io.Closer, nil
+			return client, client, nil
 		},
 	}
 	err := c.Collect(mockctx)
@@ -80,7 +80,7 @@ func TestCollect_DockerStopError(t *testing.T) {
 		servers:  store,
 		provider: provider,
 		client: func(*autoscaler.Server) (docker.APIClient, io.Closer, error) {
-			return client, io.Closer, nil
+			return client, client, nil
 		},
 	}
 	err := c.Collect(mockctx)
@@ -122,7 +122,7 @@ func TestCollect_ServerDestroyError(t *testing.T) {
 		servers:  store,
 		provider: provider,
 		client: func(*autoscaler.Server) (docker.APIClient, io.Closer, error) {
-			return client, io.Closer, nil
+			return client, client, nil
 		},
 	}
 	c.Collect(mockctx)
