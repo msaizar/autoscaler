@@ -110,7 +110,7 @@ func (mr *MockAPIClientMockRecorder) ClientVersion() *gomock.Call {
 // Close mocks base method
 func (m *MockAPIClient) Close() string {
 	ret := m.ctrl.Call(m, "Close")
-	ret0, _ := ret[0].(string)
+	ret0, _ := ret[0].(error)
 	return ret0
 }
 
